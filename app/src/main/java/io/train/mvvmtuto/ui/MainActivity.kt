@@ -1,4 +1,4 @@
-package com.example.mvvmtuto
+package io.train.mvvmtuto.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -14,10 +14,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mvvmtuto.AddNoteActivity.Companion.EXTRA_DESCRIPTION
-import com.example.mvvmtuto.AddNoteActivity.Companion.EXTRA_ID
-import com.example.mvvmtuto.AddNoteActivity.Companion.EXTRA_PRIORITY
-import com.example.mvvmtuto.AddNoteActivity.Companion.EXTRA_TITLE
+import com.example.mvvmtuto.R
+import io.train.mvvmtuto.model.Note
+import io.train.mvvmtuto.adapter.NoteAdapter
+import io.train.mvvmtuto.viewmodel.NoteViewModel
+import io.train.mvvmtuto.ui.AddEditNoteActivity.Companion.EXTRA_DESCRIPTION
+import io.train.mvvmtuto.ui.AddEditNoteActivity.Companion.EXTRA_ID
+import io.train.mvvmtuto.ui.AddEditNoteActivity.Companion.EXTRA_PRIORITY
+import io.train.mvvmtuto.ui.AddEditNoteActivity.Companion.EXTRA_TITLE
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LifecycleOwner {
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         button_add_note.setOnClickListener {
             startActivityForResult(
-                Intent(this, AddNoteActivity::class.java),
+                Intent(this, AddEditNoteActivity::class.java),
                 ADD_NOTE_REQUEST
             )
         }
@@ -69,11 +73,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         adapter.setOnItemClickListener(object: NoteAdapter.OnItemClickListener {
             override fun onItemClick(note: Note) {
-                var intent = Intent(baseContext, AddNoteActivity::class.java)
-                intent.putExtra(AddNoteActivity.EXTRA_ID, note.id)
-                intent.putExtra(AddNoteActivity.EXTRA_TITLE, note.title)
-                intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.description)
-                intent.putExtra(AddNoteActivity.EXTRA_PRIORITY, note.priority)
+                var intent = Intent(baseContext, AddEditNoteActivity::class.java)
+                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.id)
+                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.title)
+                intent.putExtra(AddEditNoteActivity.EXTRA_DESCRIPTION, note.description)
+                intent.putExtra(AddEditNoteActivity.EXTRA_PRIORITY, note.priority)
 
                 startActivityForResult(intent, EDIT_NOTE_REQUEST)
             }
@@ -86,9 +90,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         if (requestCode == ADD_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                val titleData = data.getStringExtra(AddNoteActivity.EXTRA_TITLE) ?: "no title"
-                val descriptionData = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION) ?: "no description"
-                val priorityData =  data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1)
+                val titleData = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE) ?: "no title"
+                val descriptionData = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION) ?: "no description"
+                val priorityData =  data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1)
 
                 val note = Note(titleData, descriptionData, priorityData)
 

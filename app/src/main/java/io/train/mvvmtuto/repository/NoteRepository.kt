@@ -1,8 +1,11 @@
-package com.example.mvvmtuto
+package io.train.mvvmtuto.repository
 
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
+import io.train.mvvmtuto.model.Note
+import io.train.mvvmtuto.model.NoteDao
+import io.train.mvvmtuto.database.NoteDatabase
 
 class NoteRepository(application: Application) {
     private var noteDao: NoteDao

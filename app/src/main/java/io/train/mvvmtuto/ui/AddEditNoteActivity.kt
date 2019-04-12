@@ -1,4 +1,4 @@
-package com.example.mvvmtuto
+package io.train.mvvmtuto.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -7,9 +7,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.mvvmtuto.R
 import kotlinx.android.synthetic.main.activity_add_note.*
 
-class AddNoteActivity : AppCompatActivity() {
+class AddEditNoteActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "com.example.mvvmtuto.EXTRA_ID"
         const val EXTRA_TITLE = "com.example.mvvmtuto.EXTRA_TITLE"

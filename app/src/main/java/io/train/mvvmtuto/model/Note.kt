@@ -1,4 +1,4 @@
-package com.example.mvvmtuto
+package io.train.mvvmtuto.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

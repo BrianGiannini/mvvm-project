@@ -1,4 +1,4 @@
-package com.example.mvvmtuto
+package io.train.mvvmtuto.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvmtuto.R
+import io.train.mvvmtuto.model.Note
 import kotlinx.android.synthetic.main.note_item.view.*
 
 class NoteAdapter : ListAdapter<Note, NoteAdapter.NoteHolder>(DIFF_CALLBACK) {
