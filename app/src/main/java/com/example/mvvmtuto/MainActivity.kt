@@ -66,16 +66,26 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             }
 
         }).attachToRecyclerView(recycler_view)
+
+        adapter.setOnItemClickListener(object: NoteAdapter.OnItemClickListener {
+            override fun onItemClick(note: Note) {
+                var intent = Intent(baseContext, AddNoteActivity::class.java)
+                intent.putExtra(AddNoteActivity.EXTRA_ID, note.id)
+                intent.putExtra(AddNoteActivity.EXTRA_TITLE, note.title)
+                intent.putExtra(AddNoteActivity.EXTRA_DESCRIPTION, note.description)
+                intent.putExtra(AddNoteActivity.EXTRA_PRIORITY, note.priority)
+
+                startActivityForResult(intent, EDIT_NOTE_REQUEST)
+            }
+
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == ADD_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
-
-
             if (data != null) {
-
                 val titleData = data.getStringExtra(AddNoteActivity.EXTRA_TITLE) ?: "no title"
                 val descriptionData = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION) ?: "no description"
                 val priorityData =  data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1)
